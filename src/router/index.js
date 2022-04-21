@@ -1,23 +1,62 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Home from "../views/HomeView.vue"
+import Instructions from "../views/InstructionsView.vue"
+import ProjectFormView from "../views/ProjectFormView.vue"
+import ProfileView from "../views/ProfileView.vue"
+import DashboardView from "../views/DashboardView.vue"
+import BountyFormView from "../views/BountyFormView.vue"
+import store from "../store/index"
 
 Vue.use(VueRouter)
 
+// eslint-disable-next-line no-unused-vars
+function projectExistsGuard(to,from,next){
+  if(store.state.project.created) next({path:'dashboard',replace: true})
+  else next()  
+}
+// eslint-disable-next-line no-unused-vars
+function projectDoesNotExistGuard(to,from,next){
+  if(!store.state.project.created) next({path:'project',replace: true})
+  else next()  
+}
+
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/",
+    name: "home",
+    alias: "/home",
+    component: Home,
+    
+    
+    beforeEnter: projectExistsGuard,
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: "/instructions",
+    name: "instructions",
+    component: Instructions,
+  },
+  {
+    path: "/project",
+    name: "project",
+    component: ProjectFormView
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: ProfileView,
+  },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: DashboardView,
+    beforeEnter: projectDoesNotExistGuard
+  },
+  {
+    path: "/bounty",
+    name: "bounty",
+    component: BountyFormView,
+  },
 ]
 
 const router = new VueRouter({
