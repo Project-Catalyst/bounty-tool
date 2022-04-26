@@ -1,14 +1,16 @@
 import _ from 'lodash'
-// initial state
-const state = {
-    name: null,
-    url: null,
-    description: null,
-    categories: [],
-    created: false,
-    bounties:[]
 
-}
+const getDefaultState = () => ({
+        name: null,
+        url: null,
+        description: null,
+        properties: [],
+        created: false,
+        bounties:[]
+    
+    })
+// initial state
+const state = getDefaultState()
 
 // getters
 const getters = {
@@ -23,26 +25,11 @@ const actions = {
 
 // mutations
 const mutations = {
-    // setName(state, name){
-    //     state.name = name
-    // },
-    // setUrl(state, url){
-    //     state.url = url
-    // },
-    // setDescription(state,description){
-    //     state.description = description
-    // },
-    // setCategories(state,categories){
-    //     state.categories = categories
-    // },
-    // addCategory(state,category){
-    //     state.categories.push(category)
-    // },
     createProject(state,project){
         state.name = project.name
         state.url = project.url
         state.description = project.description
-        state.categories = _.cloneDeep(project.categories)
+        state.properties = _.cloneDeep(project.properties)
         state.created = true
     },
     createBounty(state,bounty){
@@ -53,7 +40,11 @@ const mutations = {
             return item.uuid === bounty.uuid
         })
         state.bounties[idx]=bounty
+    },
+    deleteProject(state){
+        Object.assign(state, getDefaultState())
     }
+
 
     
 }

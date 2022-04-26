@@ -8,7 +8,7 @@
                             label="Project Name"
                             type="text"
                             rules="required|min:5"
-                            placeholder="i.e. Catalyst Community Site"
+                            placeholder="Catalyst Community Site"
                             helptext="Memorable name of the project"
                             v-model="name"
                             :value="name"
@@ -28,19 +28,19 @@
                             v-model="description"
                         />
                     </div>
-                    <div class="column is-7-desktop categories">
+                    <div class="column is-7-desktop properties">
                         <div
-                            v-for="(cat, idx) in categories"
-                            :key="cat.uuid"
-                            class="columns"
+                            v-for="(prop, idx) in properties"
+                            :key="prop.uuid"
+                            class="columns is-full-desktop"
                         >
                             <field-component
                                 type="text"
-                                label="Category"
+                                label="Property"
                                 rules="required|min:5"
                                 :label-visible="false"
-                                placeholder="Category name"
-                                v-model="cat.name"
+                                placeholder="Property name"
+                                v-model="prop.name"
                                 class="column is-4-desktop pt-0 pb-0"
                             />
                             <field-component
@@ -48,31 +48,44 @@
                                 label="Options"
                                 rules="required"
                                 :label-visible="false"
-                                placeholder="options,comma,separated"
-                                v-model="cat.options"
-                                class="column is-7-desktop pt-0 pb-0 options"
+                                placeholder="Option 1,Option 2, ..."
+                                v-model="prop.options"
+                                class="column is-5-desktop pt-0 pb-0 options"
                             />
+                            <b-field class="mt-2 is-2-desktop" size="is-medium">
+                                <b-checkbox v-model="prop.private">
+                                    Private
+                                </b-checkbox>
+                            </b-field>
+                            
                             <b-button
                                 class="column is-1-desktop pt-0 pb-0"
                                 type="is-danger"
                                 icon-right="delete-forever"
-                                @click="removeCategory(idx)"
+                                @click="removeProperty(idx)"
                             >
                             </b-button>
                         </div>
 
                         <b-button
                             type="is-primary"
-                            @click="addCategory"
-                            class="is-pulled-right"
+                            @click="addProperty"
+                            class="is-pulled-right "
                         >
-                            Add new Category</b-button
+                            Add new Property</b-button
                         >
                     </div>
                 </div>
                 <div class="columns pr-0">
                     <div class="column is-full-desktop pr-0">
                         <div class="buttons is-right is-mobile">
+                            <b-button
+                                type="is-warning-light"
+                                tag="router-link"
+                                :to="{ name: 'dashboard' }"
+                            >
+                                Cancel
+                            </b-button>
                             <b-button
                                 :disabled="invalid"
                                 type="is-primary"
@@ -98,10 +111,10 @@
     export default {
         components: { FieldComponent, ValidationObserver },
         mixins: [
-            debounceMixin(["createProject", "addCategory", "removeCategory"], {
-                createProject: 2000,
-                addCategory: 200,
-                removeCategory: 200,
+            debounceMixin(["createProject", "addProperty", "removeProperty"], {
+                createProject: 1000,
+                addProperty: 200,
+                removeProperty: 200,
             }),
         ],
         name: "ProjectFormView",
@@ -110,7 +123,7 @@
                 name: null,
                 url: null,
                 description: null,
-                categories: [],
+                properties: [],
                 edit:false
             };
         },
@@ -140,18 +153,18 @@
                     const self = this
                     setTimeout(()=>{
                         this.name = this.url = this.description = null;
-                        this.categories = [];          
+                        this.properties = [];          
                         self.$router.push('/dashboard')
                     },duration)
                     
 
                 });
             },
-            addCategory: function () {
-                this.categories.push({ uuid: uuidv4(), name: null, options: null });
+            addProperty: function () {
+                this.properties.push({ uuid: uuidv4(), name: null, options: null, private:false });
             },
-            removeCategory: function (idx) {
-                this.categories.splice(idx, 1);
+            removeProperty: function (idx) {
+                this.properties.splice(idx, 1);
             },
         },
         mounted: function () {
@@ -159,13 +172,13 @@
             this.name = this.project.name
             this.url = this.project.url
             this.description = this.project.description
-            this.categories = this.lodash.cloneDeep(this.project.categories)
+            this.properties = this.lodash.cloneDeep(this.project.properties)
         },
     };
 </script>
 <style scoped>
     @media screen and (min-width: 1024px) {
-        .categories {
+        .properties {
             padding-top: 3.5rem;
         }
     }

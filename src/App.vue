@@ -6,7 +6,12 @@
           <img src="@/assets/images/catalyst.png" alt="Project Catalyst" />
         </b-navbar-item>
       </template>
+      <template #start>
+      </template>
       <template #end>
+        <b-navbar-item>
+          Version {{ app.version || '0.1' }}
+        </b-navbar-item>
         <b-navbar-dropdown label="Bounty Tool">
           <b-navbar-item 
             tag="router-link" :to="{ name: 'profile' }">
@@ -42,7 +47,17 @@
     </footer>
   </div>
 </template>
+<script>
+  import { mapState } from 'vuex'
 
+  export default {
+    computed:{
+      ...mapState({
+        app: (state) => state.app
+      })
+    }
+  }
+</script>
 <style lang="scss">
 .aim-logo {
   width: 150px;

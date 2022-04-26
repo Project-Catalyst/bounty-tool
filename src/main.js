@@ -1,3 +1,4 @@
+const version = require('../package.json').version
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -21,6 +22,9 @@ Vue.use(VuePapaParse)
 
 import { ValidationProvider, extend } from 'vee-validate/dist/vee-validate.full.esm';
 Vue.component('ValidationProvider', ValidationProvider);
+
+store.commit('app/version', version || 'none')
+console.log(process.env.APP_VERSION)
 
 extend('url', value => {
   // eslint-disable-next-line no-useless-escape

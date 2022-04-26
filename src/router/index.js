@@ -17,7 +17,7 @@ function projectExistsGuard(to,from,next){
 }
 // eslint-disable-next-line no-unused-vars
 function projectDoesNotExistGuard(to,from,next){
-  if(!store.state.project.created) next({path:'project',replace: true})
+  if(!store.state.project.created) next({path:'home',replace: true})
   else next()  
 }
 
@@ -56,6 +56,7 @@ const routes = [
     path: "/bounty",
     name: "bounty",
     component: BountyFormView,
+    beforeEnter: projectDoesNotExistGuard
   },
 ]
 

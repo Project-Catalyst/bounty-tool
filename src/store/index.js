@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import createPersist from 'vuex-localstorage'
 import profile from './modules/profile'
 import project from './modules/project'
+import app from './modules/app'
 
 Vue.use(Vuex)
 
@@ -19,7 +20,8 @@ export default new Vuex.Store({
   },
   modules: {
     profile,
-    project
+    project,
+    app
   },
   strict: debug,
   plugins: [localStorage]

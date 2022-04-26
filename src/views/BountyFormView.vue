@@ -22,122 +22,203 @@
                                 placeholder="Bounty Description"
                                 v-model="bounty.description"
                             />
-                            <!-- Amount -->
-                            <field-component
-                                label="Bounty amount"
-                                type="number"
-                                rules="required|min_value:1"
-                                placeholder="i.e. 100 ADA"
-                                v-model="bounty.amount"
-                            />
-                            <!-- Increment -->
+
                             <div class="columns">
-                                <div class="column is-10-desktop">
+                                <!-- Amount -->
+                                <div class="column is-3-desktop">
+                                    <field-component
+                                        label="Bounty amount"
+                                        type="number"
+                                        rules="required|min_value:1"
+                                        placeholder="100 ADA"
+                                        v-model="bounty.amount"
+                                    />
+                                </div>
+                                <!-- Increment -->
+                                <div class="column is-2-desktop">
                                     <field-component
                                         label="Bounty increment"
                                         type="number"
-                                        :rules="bounty.incrementDisabled ? '' : 'required|min_value:1'"
-                                        placeholder="i.e. 10 ADA"
+                                        :rules="
+                                            bounty.incrementDisabled
+                                                ? ''
+                                                : 'required|min_value:1'
+                                        "
+                                        placeholder="10 ADA"
                                         v-model="bounty.increment"
                                         :disabled="bounty.incrementDisabled"
                                     />
                                 </div>
-                                
                                 <div class="column is-2-desktop">
                                     <b-field label="No bounty increment">
-                                        <b-checkbox v-model="bounty.incrementDisabled" class="mt-2" size="is-medium">
+                                        <b-checkbox
+                                            v-model="bounty.incrementDisabled"
+                                            class="mt-2"
+                                            size="is-medium"
+                                        >
                                         </b-checkbox>
                                     </b-field>
                                 </div>
+                                <div class="column is-1-desktop"></div>
+                                <!-- Period -->
+                                <div class="column is-2-desktop">
+                                    <field-component
+                                        label="Increment Period Size"
+                                        type="number"
+                                        :rules="
+                                            bounty.incrementDisabled
+                                                ? ''
+                                                : 'required|min_value:1'
+                                        "
+                                        placeholder="Number of days"
+                                        v-model="bounty.incrementPeriodSize"
+                                        :disabled="bounty.incrementDisabled"
+                                    />
+                                </div>
+
+                                <div class="column is-3-desktop">
+                                    <field-component
+                                        label="Increment Period"
+                                        type="select"
+                                        :rules="
+                                            bounty.incrementDisabled
+                                                ? ''
+                                                : 'required'
+                                        "
+                                        placeholder="Select a increment period"
+                                        :options="[
+                                            { label: 'Day', value: 'Day' },
+                                            { label: 'Week', value: 'Week' },
+                                            { label: 'Month', value: 'Month' },
+                                        ]"
+                                        v-model="bounty.incrementPeriod"
+                                        :disabled="bounty.incrementDisabled"
+                                    />
+                                </div>
                             </div>
-                            <field-component
-                                label="Increment Period"
-                                type="select"
-                                :rules="bounty.incrementDisabled ? '' : 'required'"
-                                placeholder="Select a increment period"
-                                :options="[{label:'Day',value:'Day'},{label:'Week',value:'Week'},{label:'Month',value:'Month'}]"
-                                v-model="bounty.incrementPeriod"
-                                :disabled="bounty.incrementDisabled"
-                            />
-                            <!-- Review amount -->
+
                             <div class="columns">
-                                <div class="column is-10-desktop">
+                                <!-- Review amount -->
+                                <div class="column is-2-desktop">
                                     <field-component
                                         label="Review amount"
                                         type="number"
-                                        :rules="bounty.reviewAmountDisabled ? '' : 'required|min_value:1'"
-                                        placeholder="i.e. 10 ADA"
+                                        :rules="
+                                            bounty.reviewAmountDisabled
+                                                ? ''
+                                                : 'required|min_value:1'
+                                        "
+                                        placeholder="10 ADA"
                                         v-model="bounty.reviewAmount"
                                         :disabled="bounty.reviewAmountDisabled"
                                     />
                                 </div>
-                                
                                 <div class="column is-2-desktop">
                                     <b-field label="No review amount">
-                                        <b-checkbox v-model="bounty.reviewAmountDisabled" class="mt-2" size="is-medium">
+                                        <b-checkbox
+                                            v-model="
+                                                bounty.reviewAmountDisabled
+                                            "
+                                            class="mt-2"
+                                            size="is-medium"
+                                        >
                                         </b-checkbox>
                                     </b-field>
                                 </div>
-                            </div>
-                            <!-- Admin amount -->
-                            <div class="columns">
-                                <div class="column is-10-desktop">
+                                <!-- Admin amount -->
+                                <div class="column is-2-desktop">
                                     <field-component
                                         label="Admin amount"
                                         type="number"
-                                        :rules="bounty.adminAmountDisabled ? '' : 'required|min_value:1'"
-                                        placeholder="i.e. 10 ADA"
+                                        :rules="
+                                            bounty.adminAmountDisabled
+                                                ? ''
+                                                : 'required|min_value:1'
+                                        "
+                                        placeholder="10 ADA"
                                         v-model="bounty.adminAmount"
                                         :disabled="bounty.adminAmountDisabled"
                                     />
                                 </div>
-                                
+
                                 <div class="column is-2-desktop">
                                     <b-field label="No admin amount">
-                                        <b-checkbox v-model="bounty.adminAmountDisabled" class="mt-2" size="is-medium">
+                                        <b-checkbox
+                                            v-model="bounty.adminAmountDisabled"
+                                            class="mt-2"
+                                            size="is-medium"
+                                        >
                                         </b-checkbox>
                                     </b-field>
                                 </div>
-                            </div>
-                            <!-- Identifier amount -->
-                            <div class="columns">
-                                <div class="column is-10-desktop">
+                                <!-- Submitter amount -->
+                                <div class="column is-2-desktop">
                                     <field-component
                                         label="Submitter amount"
                                         type="number"
-                                        :rules="bounty.identifierAmountDisabled ? '' : 'required|min_value:1'"
-                                        placeholder="i.e. 10 ADA"
+                                        :rules="
+                                            bounty.identifierAmountDisabled
+                                                ? ''
+                                                : 'required|min_value:1'
+                                        "
+                                        placeholder="10 ADA"
                                         v-model="bounty.identifierAmount"
-                                        :disabled="bounty.identifierAmountDisabled"
+                                        :disabled="
+                                            bounty.identifierAmountDisabled
+                                        "
                                     />
                                 </div>
-                                
+
                                 <div class="column is-2-desktop">
-                                    <b-field label="No identifier amount">
-                                        <b-checkbox v-model="bounty.identifierAmountDisabled" class="mt-2" size="is-medium">
+                                    <b-field label="No submitter amount">
+                                        <b-checkbox
+                                            v-model="
+                                                bounty.identifierAmountDisabled
+                                            "
+                                            class="mt-2"
+                                            size="is-medium"
+                                        >
                                         </b-checkbox>
                                     </b-field>
                                 </div>
                             </div>
-
                             <!-- Level & Complexity -->
                             <div class="columns">
-                                <div class="column is-half-desktop">
-                                <field-component
-                                    label="Bounty Level"
-                                    type="select"
-                                    rules="required"
-                                    placeholder="Select a level"
-                                    :options="[{label:'Urgent',value:'Urgent'},{label:'Important',value:'Important'}]"
-                                    v-model="bounty.level"
-                                />
+                                <div class="column is-2-desktop">
+                                    <field-component
+                                        label="Bounty Level"
+                                        type="select"
+                                        rules="required"
+                                        placeholder="Select a level"
+                                        :options="[
+                                            {
+                                                label: 'Urgent',
+                                                value: 'Urgent',
+                                            },
+                                            {
+                                                label: 'Important',
+                                                value: 'Important',
+                                            },
+                                        ]"
+                                        v-model="bounty.level"
+                                    />
                                 </div>
-                                <div class="column is-half-desktop">
+                                <div class="column is-2-desktop">
                                     <field-component
                                         label="Bounty complexity"
                                         type="select"
                                         rules="required"
-                                        :options="[{label:'Simple',value:'Simple'},{label:'Medium',value:'Medium'},{label:'Hard',value:'Hard'}]"
+                                        :options="[
+                                            {
+                                                label: 'Simple',
+                                                value: 'Simple',
+                                            },
+                                            {
+                                                label: 'Medium',
+                                                value: 'Medium',
+                                            },
+                                            { label: 'Hard', value: 'Hard' },
+                                        ]"
                                         placeholder="Select complexity"
                                         v-model="bounty.complexity"
                                     />
@@ -145,9 +226,23 @@
                             </div>
                             <b-field grouped group-multiline v-if="edit">
                                 <div class="control">
-                                    <b-switch v-model="bounty.state.open" @input="updateState('open',$event)">Open</b-switch>
-                                    <b-switch v-model="bounty.state.initiated" @input="updateState('initiated',$event)">Started</b-switch>
-                                    <b-switch v-model="bounty.state.closed" @input="updateState('closed',$event)">Closed</b-switch>
+                                    <b-switch
+                                        v-model="bounty.state.open"
+                                        @input="updateState('open', $event)"
+                                        >Open</b-switch
+                                    >
+                                    <b-switch
+                                        v-model="bounty.state.initiated"
+                                        @input="
+                                            updateState('initiated', $event)
+                                        "
+                                        >Initiated</b-switch
+                                    >
+                                    <b-switch
+                                        v-model="bounty.state.closed"
+                                        @input="updateState('closed', $event)"
+                                        >Closed</b-switch
+                                    >
                                 </div>
                             </b-field>
 
@@ -174,7 +269,6 @@
     </ValidationObserver>
 </template>
 <script>
-   
     import { ValidationObserver } from "vee-validate";
     import FieldComponent from "../components/FieldComponent.vue";
     import debounceMixin from "../mixins/debounceMixin";
@@ -199,22 +293,24 @@
                     increment: null,
                     incrementDisabled: false,
                     incrementPeriod: null,
-                    reviewAmount:null,
+                    incrementPeriodSize: null,
+                    reviewAmount: null,
                     reviewAmountDisabled: false,
                     adminAmount: null,
-                    adminAmountDisabled:false,
+                    adminAmountDisabled: false,
                     identifierAmount: null,
-                    identifierAmountDisabled:false,
+                    identifierAmountDisabled: false,
                     issueUrl: null,
                     level: null,
                     complexity: null,
                     created: null,
-                    updated:null,
+                    updated: null,
                     state: {
-                        open:true,
-                        initiated:false,
-                        closed:false
-                    }
+                        open: true,
+                        initiated: false,
+                        closed: false,
+                    },
+                    properties: []
                 },
                 edit: false,
             };
@@ -223,9 +319,7 @@
             ...mapState({
                 project: (state) => state.project,
             }),
-            ...mapGetters('project',[
-                'getBountyByUUID'
-            ])
+            ...mapGetters("project", ["getBountyByUUID"]),
         },
         methods: {
             createBounty: function () {
@@ -233,44 +327,50 @@
                     if (!success) {
                         return;
                     }
-                    let mutation = "project/createBounty"
-                    if(this.edit) {
-                        mutation = "project/updateBounty"
-                        this.bounty.updated = Date.now()
-                    }else{
-                        this.bounty.created = Date.now()
+                    let mutation = "project/createBounty";
+                    if (this.edit) {
+                        mutation = "project/updateBounty";
+                        this.bounty.updated = Date.now();
+                    } else {
+                        this.bounty.created = Date.now();
                     }
                     this.$store.commit(
                         mutation,
                         this.lodash.cloneDeep(this.bounty)
                     );
-                    const duration = 2000
-                    const self = this
+                    const duration = 2000;
+                    const self = this;
                     this.$buefy.toast.open({
-                        duration:duration,
-                    message: `Bounty "${self.bounty.name}" ${self.edit ? 'updated':'created'}!`,
+                        duration: duration,
+                        message: `Bounty "${self.bounty.name}" ${
+                            self.edit ? "updated" : "created"
+                        }!`,
                         position: "is-top",
-                        type: 'is-success'
-                    })
-                    setTimeout(()=>{
-                        self.$router.push("/dashboard");    
-                    } ,duration)
-                    
+                        type: "is-success",
+                    });
+                    setTimeout(() => {
+                        self.$router.push("/dashboard");
+                    }, duration);
                 });
             },
-            updateState(state,value){
-                if(value && state !== 'closed') this.bounty.state.closed = false
-                if(state === 'closed' && value) {
-                    this.bounty.state.open = false 
-                    this.bounty.state.initiated = false 
+            updateState(state, value) {
+                if (value) {
+                    Object.keys(this.bounty.state).forEach((key) => {
+                        if (key === state) this.bounty.state[key] = value;
+                        else this.bounty.state[key] = !value;
+                    });
                 }
-                
-            }
+            },
         },
         async mounted() {
-            if (this.$route.query.uuid !== undefined && this.$route.query !== undefined){
+            if (
+                this.$route.query.uuid !== undefined &&
+                this.$route.query !== undefined
+            ) {
                 this.edit = true;
-                this.bounty = await this.lodash.cloneDeep(this.getBountyByUUID(this.$route.query.uuid))
+                this.bounty = await this.lodash.cloneDeep(
+                    this.getBountyByUUID(this.$route.query.uuid)
+                );
             }
         },
     };
