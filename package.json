@@ -1,6 +1,6 @@
 {
   "name": "bounty-tool",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -19,6 +19,7 @@
     "json2csv": "^5.0.7",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
+    "slugify": "^1.6.5",
     "uuid": "^8.3.2",
     "vee-validate": "3",
     "vue": "^2.6.14",

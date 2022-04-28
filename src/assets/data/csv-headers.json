@@ -1,0 +1,98 @@
+{
+    "project": {
+        "type": "string",
+        "label": "Project"
+    },
+    "project_url": {
+        "type": "string",
+        "label": "Project Url"
+    },
+    "project_description": {
+        "type": "string",
+        "label": "Project Description"
+    },
+    "project_properties": {
+        "type": "string",
+        "label": "Project Properties"
+    },
+    "uuid": {
+        "type": "string",
+        "label": "Uuid"
+    },
+    "name": {
+        "type": "string",
+        "label": "Name"
+    },
+    "description": {
+        "type": "string",
+        "label": "Description"
+    },
+    "amount": {
+        "type": "integer",
+        "label": "Amount"
+    },
+    "increment": {
+        "type": "integer",
+        "label": "Increment"
+    },
+    "incrementDisabled": {
+        "type": "boolean",
+        "label": "Increment Disabled"
+    },
+    "incrementPeriod": {
+        "type": "integer",
+        "label": "Increment Period"
+    },
+    "incrementPeriodSize": {
+        "type": "string",
+        "label": "Increment Period Size"
+    },
+    "reviewAmount": {
+        "type": "integer",
+        "label": "Review Amount"
+    },
+    "reviewAmountDisabled": {
+        "type": "boolean",
+        "label": "Review Amount Disabled"
+    },
+    "adminAmount": {
+        "type": "integer",
+        "label": "Admin Amount"
+    },
+    "adminAmountDisabled": {
+        "type": "boolean",
+        "label": "Review Amount Disabled"
+    },
+    "submitterAmount": {
+        "type": "integer",
+        "label": "Submitter Amount"
+    },
+    "submitterAmountDisabled": {
+        "type": "boolean",
+        "label": "Submitter Amount Disabled"
+    },
+    "issueUrl": {
+        "type": "string",
+        "label": "Issue Url"
+    },
+    "level": {
+        "type": "string",
+        "label": "Level"
+    },
+    "complexity": {
+        "type": "string",
+        "label": "Complexity"
+    },
+    "created": {
+        "type": "string",
+        "label": "Created"
+    },
+    "updated": {
+        "type": "string",
+        "label": "Updated"
+    },
+    "state": {
+        "type": "string",
+        "label": "State"
+    }
+}

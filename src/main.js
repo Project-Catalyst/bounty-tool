@@ -24,7 +24,6 @@ import { ValidationProvider, extend } from 'vee-validate/dist/vee-validate.full.
 Vue.component('ValidationProvider', ValidationProvider);
 
 store.commit('app/version', version || 'none')
-console.log(process.env.APP_VERSION)
 
 extend('url', value => {
   // eslint-disable-next-line no-useless-escape

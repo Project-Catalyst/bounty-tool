@@ -22,7 +22,7 @@
                                 placeholder="Bounty Description"
                                 v-model="bounty.description"
                             />
-
+                            <!-- Amount,Increment,Period -->
                             <div class="columns">
                                 <!-- Amount -->
                                 <div class="column is-3-desktop">
@@ -96,7 +96,7 @@
                                     />
                                 </div>
                             </div>
-
+                            <!-- Review,Admin,Submitter amount -->
                             <div class="columns">
                                 <!-- Review amount -->
                                 <div class="column is-2-desktop">
@@ -157,14 +157,14 @@
                                         label="Submitter amount"
                                         type="number"
                                         :rules="
-                                            bounty.identifierAmountDisabled
+                                            bounty.submitterAmountDisabled
                                                 ? ''
                                                 : 'required|min_value:1'
                                         "
                                         placeholder="10 ADA"
-                                        v-model="bounty.identifierAmount"
+                                        v-model="bounty.submitterAmount"
                                         :disabled="
-                                            bounty.identifierAmountDisabled
+                                            bounty.submitterAmountDisabled
                                         "
                                     />
                                 </div>
@@ -173,7 +173,7 @@
                                     <b-field label="No submitter amount">
                                         <b-checkbox
                                             v-model="
-                                                bounty.identifierAmountDisabled
+                                                bounty.submitterAmountDisabled
                                             "
                                             class="mt-2"
                                             size="is-medium"
@@ -224,6 +224,38 @@
                                     />
                                 </div>
                             </div>
+
+                            <!-- Custom properties -->
+                            <div class="columns">
+                                <div class="column is-3-desktop"
+                                    v-for="prop in project.properties"
+                                    :key="prop.uuid" 
+                                >
+                                    <b-field
+                                        :label="`${prop.name} ${
+                                            prop.private
+                                                ? '(Private)'
+                                                : '(Public)'
+                                        }`"
+                                    >
+                                    <b-select placeholder="Select" v-model="bounty.properties[prop.uuid]">
+                                        <option></option>
+                                        <option
+                                            v-for="(
+                                                opt, idx
+                                            ) in prop.options.split(',')"
+                                            :key="idx"
+                                            :value="opt"
+                                        >
+                                        {{opt}}
+                                        </option>
+                                    </b-select>
+                                    </b-field>
+                                    
+                                </div>
+                            </div>
+
+                            <!-- Status -->
                             <b-field grouped group-multiline v-if="edit">
                                 <div class="control">
                                     <b-switch
@@ -298,8 +330,8 @@
                     reviewAmountDisabled: false,
                     adminAmount: null,
                     adminAmountDisabled: false,
-                    identifierAmount: null,
-                    identifierAmountDisabled: false,
+                    submitterAmount: null,
+                    submitterAmountDisabled: false,
                     issueUrl: null,
                     level: null,
                     complexity: null,
@@ -310,7 +342,7 @@
                         initiated: false,
                         closed: false,
                     },
-                    properties: []
+                    properties: {},
                 },
                 edit: false,
             };
@@ -372,6 +404,19 @@
                     this.getBountyByUUID(this.$route.query.uuid)
                 );
             }
+
+            if(this.bounty.properties === undefined){
+                console.log('creating properties')
+                this.bounty.properties={}
+            }
+
+            this.project.properties.forEach ( prop =>{
+                if(this.bounty.properties[prop.uuid] === undefined){
+                    console.log('creating',prop)
+                    // Object.assgin(this.bounty.properties[prop.uuid]
+                }
+            })
+            console.log(this.bounty)
         },
     };
 </script>

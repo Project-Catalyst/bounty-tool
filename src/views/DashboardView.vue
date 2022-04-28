@@ -12,18 +12,39 @@
                 <div class="column is-5-desktop">
                     <div class="section" v-if="project.properties.length > 0">
                         <b-table :data="project.properties" striped>
-                            <b-table-column field="name" label="Property" v-slot="props">
+                            <b-table-column
+                                field="name"
+                                label="Property"
+                                v-slot="props"
+                            >
                                 {{ props.row.name }}
                             </b-table-column>
-                            <b-table-column field="options" label="Options" v-slot="props">
+                            <b-table-column
+                                field="options"
+                                label="Options"
+                                v-slot="props"
+                            >
                                 <b-taglist>
-                                    <b-tag type="is-info" v-for=" (option, idx) in props.row.options.split(',')" :key="idx">
+                                    <b-tag
+                                        type="is-info"
+                                        v-for="(
+                                            option, idx
+                                        ) in props.row.options.split(',')"
+                                        :key="idx"
+                                    >
                                         {{ option }}
                                     </b-tag>
                                 </b-taglist>
                             </b-table-column>
-                            <b-table-column field="private" label="Private" v-slot="props">
-                                <b-checkbox disabled :value="props.row.private"></b-checkbox>
+                            <b-table-column
+                                field="private"
+                                label="Private"
+                                v-slot="props"
+                            >
+                                <b-checkbox
+                                    disabled
+                                    :value="props.row.private"
+                                ></b-checkbox>
                             </b-table-column>
                         </b-table>
                     </div>
@@ -37,26 +58,27 @@
                         >
                             Delete Project
                         </b-button>
-                        <b-button expanded>Export CSV</b-button>
+                        <b-button expanded @click="exportCSV"
+                            >Export CSV</b-button
+                        >
                         <b-button
                             tag="router-link"
                             :to="{ name: 'project', hash: '#edit' }"
                             expanded
                             >Edit Project Settings</b-button
                         >
-                        
                     </div>
                 </div>
             </div>
         </div>
         <div class="section" v-if="project.bounties.length > 0">
-            <b-button 
-                            tag="router-link"
-                            :to="{ name: 'bounty' }"
-                            expanded
-                            class="mb-5"
-                            >{{ addBtnTxt }}</b-button
-                        >
+            <b-button
+                tag="router-link"
+                :to="{ name: 'bounty' }"
+                expanded
+                class="mb-5"
+                >{{ addBtnTxt }}</b-button
+            >
             <b-field grouped group-multiline label="">
                 <div class="control">
                     <b-switch v-model="showOpen">Open</b-switch>
@@ -163,6 +185,7 @@
     import "@js-joda/timezone";
     import { Locale } from "@js-joda/locale_en";
     import { LocalDate, DateTimeFormatter, Instant } from "@js-joda/core";
+    import { downloadCsv } from "../export-csv";
 
     export default {
         name: "DashboardView",
@@ -214,15 +237,18 @@
                             position: "is-top",
                             type: "is-success",
                         });
-                        
-                        setTimeout(()=>{
+
+                        setTimeout(() => {
                             self.$store.commit("project/deleteProject");
-                            self.$router.push('/home')
-                        },duration)
+                            self.$router.push("/home");
+                        }, duration);
                     },
                 });
             },
+            exportCSV() {
+                downloadCsv(this.project)
+            },
         },
-        mounted() {},
+        
     };
 </script>
