@@ -305,7 +305,7 @@
     import FieldComponent from "../components/FieldComponent.vue";
     import debounceMixin from "../mixins/debounceMixin";
     import { mapState, mapGetters } from "vuex";
-    import { v4 as uuidv4 } from "uuid";
+    import DefaultState from "../store/DefaultState"
 
     export default {
         name: "BountyFormView",
@@ -317,33 +317,7 @@
         ],
         data: function () {
             return {
-                bounty: {
-                    uuid: uuidv4(),
-                    name: null,
-                    description: null,
-                    amount: null,
-                    increment: null,
-                    incrementDisabled: false,
-                    incrementPeriod: null,
-                    incrementPeriodSize: null,
-                    reviewAmount: null,
-                    reviewAmountDisabled: false,
-                    adminAmount: null,
-                    adminAmountDisabled: false,
-                    submitterAmount: null,
-                    submitterAmountDisabled: false,
-                    issueUrl: null,
-                    level: null,
-                    complexity: null,
-                    created: null,
-                    updated: null,
-                    state: {
-                        open: true,
-                        initiated: false,
-                        closed: false,
-                    },
-                    properties: {},
-                },
+                bounty: DefaultState.bounty(),
                 edit: false,
             };
         },

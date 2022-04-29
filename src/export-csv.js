@@ -88,10 +88,10 @@ function downloadCsv(project) {
     if (data.length) {
         const parser = new Parser()
         const csv = parser.parse(data)
-        console.log(csv)
+        // console.log(csv)
         const blob = new Blob([csv], { type: "text/plain;charset=utf-8" });
         FileSaver.saveAs(blob, slugify(filename));
     }
 }
 
-export { downloadCsv }
+export { downloadCsv, PROJECT_PREFIX, PROPERTY_PREFIX }

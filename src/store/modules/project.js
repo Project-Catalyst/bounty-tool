@@ -1,16 +1,7 @@
 import _ from 'lodash'
-
-const getDefaultState = () => ({
-        name: null,
-        url: null,
-        description: null,
-        properties: [],
-        created: false,
-        bounties:[]
-    
-    })
+import DefaultState from '../DefaultState'
 // initial state
-const state = getDefaultState()
+const state = DefaultState.project()
 
 // getters
 const getters = {
@@ -31,6 +22,10 @@ const mutations = {
         state.description = project.description
         state.properties = _.cloneDeep(project.properties)
         state.created = true
+        if(project.bounties !== undefined){
+            state.bounties = _.cloneDeep(project.bounties)
+        }
+        
     },
     createBounty(state,bounty){
         state.bounties.push(bounty)
@@ -42,7 +37,7 @@ const mutations = {
         state.bounties[idx]=bounty
     },
     deleteProject(state){
-        Object.assign(state, getDefaultState())
+        Object.assign(state, DefaultState.project())
     }
 
 

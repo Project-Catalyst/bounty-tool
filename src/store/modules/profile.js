@@ -1,13 +1,6 @@
 // initial state
-const getDefaultState = () => ({
-  initialized: false,
-  localDb: false,
-  info: {
-    name: '',
-    email: ''
-  }
-})
-const state = getDefaultState()
+import DefaultState from "../DefaultState"
+const state = DefaultState.profile()
 
 // getters
 const getters = {}
@@ -32,7 +25,7 @@ const mutations = {
     state.localDb = localDb
   },
   resetState (state) {
-    Object.assign(state, getDefaultState())
+    Object.assign(state, DefaultState.profile())
   }
 }
 
