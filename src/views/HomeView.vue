@@ -120,7 +120,6 @@
         },
         methods: {
             importData() {
-                console.log("import data");
                 const project = DefaultState.project()
                 if (this.csv) {
                     if (this.csv.data) {
@@ -132,14 +131,15 @@
                                     })
                                 }
                                 Object.keys(row).filter( 
-                                    key => ![PROJECT_PREFIX,PROPERTY_PREFIX].includes(key)).forEach( key =>{
+                                    key => !key.startsWith(PROJECT_PREFIX) && !key.startsWith(PROPERTY_PREFIX)).forEach( key =>{
+                                        console.log(`Pushing ${key}`)
                                     bounty[key]=row[key]  
                                 })
                                 Object.keys(row).filter( key => key.startsWith(PROPERTY_PREFIX)).forEach( key => {
                                     bounty.properties[key.replace(PROPERTY_PREFIX,'')]=row[key]
                                 })
                                 project.bounties.push(bounty)
-                                // console.log(project)
+                                
                         })
                         this.$store.commit("project/createProject", project);
                         this.$router.push({ name: "dashboard" });

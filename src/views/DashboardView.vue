@@ -97,7 +97,7 @@
                     sortable
                     v-slot="props"
                 >
-                    {{ props.row.name }}
+                    <a href="#" @click="showDetails(props.row.uuid)">{{ props.row.name }}</a>
                 </b-table-column>
                 <b-table-column
                     field="amount"
@@ -186,6 +186,7 @@
     import { Locale } from "@js-joda/locale_en";
     import { LocalDate, DateTimeFormatter, Instant } from "@js-joda/core";
     import { downloadCsv } from "../export-csv";
+    import BountyModal from "../components/BountyModal.vue"
 
     export default {
         name: "DashboardView",
@@ -195,7 +196,7 @@
                 showAssigned: true,
                 showInitiated: true,
                 showClosed: true,
-                addBtnTxt: "Add a New Bounty",
+                addBtnTxt: "Add a New Bounty"
             };
         },
         computed: {
@@ -248,6 +249,18 @@
             exportCSV() {
                 downloadCsv(this.project)
             },
+            showDetails(uuid){
+                const bounty = this.project.bounties.filter( bounty => bounty.uuid === uuid)[0]
+
+                this.$buefy.modal.open({
+                    parent: this,
+                    props: { 'bounty': bounty, 'projectProperties': this.project.properties },
+                    component: BountyModal,
+                    hasModalCard: true,
+                    trapFocus:true
+                })
+
+            }
         },
         
     };
