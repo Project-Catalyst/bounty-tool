@@ -69,8 +69,8 @@
                                             bounty.incrementDisabled
                                                 ? ''
                                                 : 'required|min_value:1'
-                                        "
-                                        placeholder="Number of days"
+                                        " 
+                                        :placeholder="bounty.incrementPeriod === null ? '': 'Number of '+ bounty.incrementPeriod.toLowerCase()+'(s)' "
                                         v-model="bounty.incrementPeriodSize"
                                         :disabled="bounty.incrementDisabled"
                                     />

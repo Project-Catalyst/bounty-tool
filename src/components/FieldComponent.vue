@@ -53,7 +53,7 @@
             placeholder: String,
             type: String,
             helptext: String,
-            value: String,
+            value: {},
             rules: String,
             size: String,
             options: Array,

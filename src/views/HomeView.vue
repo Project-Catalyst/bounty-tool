@@ -156,12 +156,11 @@
                     transform: (value, col) => {
                         // console.log(`${col}=${value}`)
                         if(value==="null") return null
+                        if(value==="true") return true
+                        if(value==="false") return false
                         if(["project_properties",
                             "state",
-                            "project_created",
-                            "incrementDisabled",
-                            "adminAmountDisabled",
-                            "identifierAmountDisabled"
+                            "project_created"
                             ].includes(col)) return JSON.parse(value)
                         if(["amount","increment","incrementPeriodSize"].includes(col)) return parseInt(value)
                         return value

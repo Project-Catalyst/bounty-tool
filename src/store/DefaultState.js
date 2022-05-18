@@ -18,6 +18,24 @@ export default {
             info: {
               name: '',
               email: ''
+            },
+            defaultSettings:{
+                bounty:{
+                    amount: 10,
+                    increment: null,
+                    incrementDisabled: false,
+                    incrementPeriod: null,
+                    incrementPeriodSize: null,
+                    reviewAmount: null,
+                    reviewAmountDisabled: false,
+                    adminAmount: null,
+                    adminAmountDisabled: false,
+                    submitterAmount: null,
+                    submitterAmountDisabled: false,
+                    issueUrl: null,
+                    level: null,
+                    complexity: null,
+                }
             }
           }
     },

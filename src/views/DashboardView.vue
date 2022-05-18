@@ -29,7 +29,7 @@
                                         type="is-info"
                                         v-for="(
                                             option, idx
-                                        ) in props.row.options.split(',')"
+                                        ) in getTags(props.row.options)"
                                         :key="idx"
                                     >
                                         {{ option }}
@@ -53,7 +53,7 @@
                     <div class="buttons">
                         <b-button
                             type="is-danger"
-                            @click="confirmDelete"
+                            @click="confirmDelete(`Project ${project.name} deleted`)"
                             expanded
                         >
                             Delete Project
@@ -148,15 +148,28 @@
                     </span>
                 </b-table-column>
                 <b-table-column field="Actions" v-slot="props">
-                    <b-button
-                        tag="router-link"
-                        :to="{
-                            name: 'bounty',
-                            query: { uuid: props.row.uuid },
-                        }"
-                        expanded
-                        >Edit</b-button
-                    >
+                    <div class="buttons is-right">
+                        <b-button
+                            type="is-success"
+                            @click="showAssignBounty(props.row.uuid)"
+                        >
+                            Assign Bounty
+                        </b-button>
+                        <b-button
+                            tag="router-link"
+                            :to="{
+                                name: 'bounty',
+                                query: { uuid: props.row.uuid },
+                            }"
+                            >Edit</b-button
+                        >
+                        <b-button
+                            type="is-danger"
+                            @click="confirmDeleteBounty(props.row.uuid)"
+                        >
+                            Delete
+                        </b-button>
+                    </div>
                 </b-table-column>
             </b-table>
         </div>
@@ -186,10 +199,13 @@
     import { Locale } from "@js-joda/locale_en";
     import { LocalDate, DateTimeFormatter, Instant } from "@js-joda/core";
     import { downloadCsv } from "../export-csv";
-    import BountyModal from "../components/BountyModal.vue"
+    import BountyModal from "../components/BountyModal.vue";
+    import AssignBountyModal from "../components/AssignBountyModal.vue";
+    import deleteProjectConfirmationMixin from "../mixins/deleteProjectConfirmationMixin";
 
     export default {
         name: "DashboardView",
+        mixins: [deleteProjectConfirmationMixin],
         data: function () {
             return {
                 showOpen: true,
@@ -221,16 +237,16 @@
                     return true;
                 });
             },
-            confirmDelete() {
+            confirmDeleteBounty(uuid) {
                 const duration = 1000;
                 const self = this;
-                const toastMsg = `Project ${self.project.name} deleted!`;
+                const toastMsg = `Bounty ${self.project.name} deleted!`;
                 this.$buefy.dialog.confirm({
                     type: "is-danger",
                     title: "Delete Confirmation",
                     confirmText: "DELETE",
                     message:
-                        "Are you sure you want to delete this project? It CANNOT be undone!",
+                        "Are you sure you want to delete this Bounty?",
                     onConfirm: () => {
                         self.$buefy.toast.open({
                             duration: duration,
@@ -240,8 +256,7 @@
                         });
 
                         setTimeout(() => {
-                            self.$store.commit("project/deleteProject");
-                            self.$router.push("/home");
+                            self.$store.commit("project/deleteBounty",uuid)
                         }, duration);
                     },
                 });
@@ -259,8 +274,32 @@
                     hasModalCard: true,
                     trapFocus:true
                 })
-
+            },
+            showAssignBounty(uuid){
+                const bounty = this.project.bounties.filter( bounty => bounty.uuid === uuid)[0]
+                this.$buefy.modal.open({
+                    parent: this,
+                    props: { 'bounty': bounty, 'projectProperties': this.project.properties },
+                    component: AssignBountyModal,
+                    hasModalCard: true,
+                    trapFocus:true
+                })
+            },
+            getTags(str){
+                const all = str.split(',')
+                const result = []
+                all.forEach( a => {
+                    if(result.join(',').length < 35){
+                        result.push(a)
+                    }
+                })
+                if(result.length < all.length){
+                        result.push('...')
+                }
+                
+                return result
             }
+
         },
         
     };

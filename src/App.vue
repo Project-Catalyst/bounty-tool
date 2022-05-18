@@ -3,7 +3,7 @@
     <b-navbar class="is-primary">
       <template #brand>
         <b-navbar-item tag="router-link" :to="{ name: 'home' }">
-          <img src="@/assets/images/catalyst.png" alt="Project Catalyst" />
+          <img src="@/assets/images/aim-logo-white.png" alt="Catalyst AIM"/>
         </b-navbar-item>
       </template>
       <template #start>

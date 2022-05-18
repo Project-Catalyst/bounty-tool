@@ -80,6 +80,12 @@
                     <div class="column is-full-desktop pr-0">
                         <div class="buttons is-right is-mobile">
                             <b-button
+                                type="is-danger"
+                                @click="confirmDelete(`Project ${project.name} deleted`)"
+                            >
+                                Delete Project
+                            </b-button>
+                            <b-button
                                 type="is-warning-light"
                                 tag="router-link"
                                 :to="{ name: 'dashboard' }"
@@ -107,6 +113,7 @@
     import debounceMixin from "../mixins/debounceMixin"
     import { mapState } from "vuex"
     import { v4 as uuidv4 } from "uuid"
+    import deleteProjectConfirmationMixin from "../mixins/deleteProjectConfirmationMixin"
 
     export default {
         components: { FieldComponent, ValidationObserver },
@@ -116,6 +123,7 @@
                 addProperty: 200,
                 removeProperty: 200,
             }),
+            deleteProjectConfirmationMixin
         ],
         name: "ProjectFormView",
         data: function () {
@@ -164,7 +172,27 @@
                 this.properties.push({ uuid: uuidv4(), name: null, options: null, private:false });
             },
             removeProperty: function (idx) {
-                this.properties.splice(idx, 1);
+                const index = idx;
+                const duration = 1000;
+                const self = this;
+                const name = this.properties[idx].name;
+                this.$buefy.dialog.confirm({
+                type: "is-danger",
+                title: "Delete Confirmation",
+                confirmText: "DELETE",
+                message:
+                    "Are you sure you want to delete this property?",
+                onConfirm: () => {
+                    self.$buefy.toast.open({
+                        duration: duration,
+                        message: `Property ${name} deleted`,
+                        position: "is-top",
+                        type: "is-success",
+                    });
+                    this.properties.splice(index, 1);
+                },
+            });
+                
             },
         },
         mounted: function () {

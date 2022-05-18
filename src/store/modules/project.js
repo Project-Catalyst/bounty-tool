@@ -38,7 +38,14 @@ const mutations = {
     },
     deleteProject(state){
         Object.assign(state, DefaultState.project())
-    }
+    },
+    deleteBounty(state,uuid){
+        console.log("Deleting",uuid)
+        const idx = state.bounties.findIndex( item =>{
+            return item.uuid === uuid
+        })
+        state.bounties.splice(idx,1)
+    },
 
 
     
