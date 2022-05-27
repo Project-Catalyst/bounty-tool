@@ -13,10 +13,11 @@
           Version {{ app.version || '0.1' }}
         </b-navbar-item>
         <b-navbar-dropdown label="Bounty Tool">
-          <b-navbar-item 
+
+          <!-- <b-navbar-item 
             tag="router-link" :to="{ name: 'profile' }">
             Profile
-          </b-navbar-item>
+          </b-navbar-item> -->
           <b-navbar-item 
             tag="router-link" :to="{ name: 'instructions' }"> 
             Instructions

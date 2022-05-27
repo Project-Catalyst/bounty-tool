@@ -55,6 +55,9 @@
                             <b-field class="mt-2 is-2-desktop" size="is-medium">
                                 <b-checkbox v-model="prop.private">
                                     Private
+                                    <b-tooltip label="You might want to keep some things private (emails and wallet addresses)" multilined>
+                                        <b-icon icon="help-circle"></b-icon>
+                                    </b-tooltip>
                                 </b-checkbox>
                             </b-field>
                             
