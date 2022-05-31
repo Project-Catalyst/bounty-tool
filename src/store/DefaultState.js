@@ -32,9 +32,7 @@ export default {
                     adminAmountDisabled: false,
                     submitterAmount: null,
                     submitterAmountDisabled: false,
-                    issueUrl: null,
-                    level: null,
-                    complexity: null,
+                    issueUrl: null
                 }
             }
           }
@@ -56,8 +54,6 @@ export default {
             submitterAmount: null,
             submitterAmountDisabled: true,
             issueUrl: null,
-            level: null,
-            complexity: null,
             created: null,
             updated: null,
             state: {

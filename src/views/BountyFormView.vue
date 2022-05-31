@@ -202,7 +202,7 @@
                             </b-tooltip>
                         </h1>
                         <!-- Level & Complexity -->
-                        <div class="columns">
+                        <!-- <div class="columns">
                             <div class="column is-half-desktop">
                                 <field-component
                                     label="Bounty Level"
@@ -242,7 +242,7 @@
                                     v-model="bounty.complexity"
                                 />
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Custom properties -->
                         <div

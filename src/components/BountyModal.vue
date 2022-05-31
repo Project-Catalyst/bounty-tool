@@ -29,12 +29,6 @@
                         <div class="block">
                             <strong class="tag">Submitter amount:</strong> {{ !submitterAmountDisabled && bounty.submitterAmount !== null ? `${bounty.submitterAmount} ADA` : 'disabled'}} 
                         </div>
-                        <div class="block">
-                            <strong class="tag">Level:</strong> {{bounty.level}}
-                        </div>
-                        <div class="block">
-                            <strong class="tag">Complexity:</strong> {{bounty.complexity}}
-                        </div>
                         <div class="block" v-for="(p,uuid) in bounty.properties" :key="uuid">
                             <strong class="tag">{{getPropertyName(uuid)}}</strong> {{p}}
                         </div>
